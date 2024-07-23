@@ -6,60 +6,75 @@
           
             font-family: Arial, sans-serif;
         }
-        #loading-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000;
-    height: 100vh;
-    width: 100vw;
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    animation: fadeOut 3s linear 4s forwards; /* Add 'forwards' to keep final state */
-}
-
-#loading-text {
-    font-size: 2em;
-    font-weight: bold;
-     font-family: "Montserrat", sans-serif;
-    animation: zoomOut 3s forwards 4s;
-}
-
-
-
-@keyframes zoomOut {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(800);
-        opacity: 0;
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        display: none; 
-        visibility: hidden; 
-    }
-}
-/* Initial state to hide the navbar */
+        @font-face {
+          font-family: 'Heading Now'; 
+          src: url('https://fonts.vdhazel.com/headingnow/Heading-Now-Variable-Regular-trial.woff2') format('woff2'); 
+          font-weight: normal; 
+          font-style: normal; 
+        }
+        
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        
+        .splash-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #000;
+          z-index: 9999;
+          transition: opacity 0.5s ease-out;
+        }
+        
+        .splash-screen.hidden {
+          opacity: 0;
+          pointer-events: none;
+        }
+        
+        .animated-text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 3rem;
+          font-size: 10vw;
+          line-height: 10vw;
+          font-family: "Heading Now", sans-serif;
+        }
+        
+        .letter {
+          display: inline-block;
+          --wght: 100;
+          --wdth: 85;
+          --opacity: 0.25;
+          --letter-spacing: 0;
+          --font-size: 10vw;
+          font-variation-settings: "wght" var(--wght), "wdth" var(--wdth);
+          opacity: var(--opacity);
+          letter-spacing: var(--letter-spacing);
+          font-size: var(--font-size);
+          transition: 
+            font-variation-settings 1s ease-in-out,
+            opacity 1s ease-in-out,
+            letter-spacing 2s ease-in-out,
+            font-size 1s ease-in-out;
+        }
+        
+        
 .navbar.hidden {
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
         .navbar {   position: sticky;
-    top: 0;
-    width: calc(100% - 40px); /* Adjusted for padding */
+    top: 5px;
+    width: auto; /* Adjusted for padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,25 +122,55 @@
         .navbar .nav-buttons button:hover {
             background: #0056b3;
         }
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: calc(100vh - 60px); /* Adjusting for navbar height */
-            background: url('your-background-image.jpg') no-repeat center center/cover;
-            color: #fff;
-            text-align: center;
-        }
-        .hero-content {
-            max-width: 600px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-        }
-        .hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
+        /* General styles for hero section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allow text to grow and shrink */
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  flex-grow: 1; /* Allow text to grow and shrink */
+}
+
+.hero-content button {
+  font-size: 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hero {
+      padding: 30px 15px;
+  }
+
+  .hero-content h1 {
+      font-size: 1.75rem; /* Adjust font size for mobile */
+  }
+
+  .hero-content p {
+      font-size: 1rem; /* Adjust font size for mobile */
+  }
+
+  .hero-content button {
+      font-size: 0.875rem; /* Adjust button font size for mobile */
+  }
+}
+
         .hero p {
             font-size: 1.5em;
             margin-bottom: 30px;
@@ -375,7 +420,9 @@ body {
 }.marquee--8 .marquee__item:nth-of-type(12) {
   --marquee-item-index: 12;
 }
-
+.No{
+  text-align: center; margin-bottom: 5px;
+}
 
 @keyframes go {
   to {  
@@ -391,4 +438,105 @@ body {
                 transform: translateX(-100%);
             }
         }
-   
+   /* General styles for the menu toggle (burger icon) */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+/* Navbar styles for mobile devices */
+@media (max-width: 768px) {
+  .navbar .nav-buttons {
+      display: none;
+  }
+  
+  .menu-toggle {
+      display: flex;
+  }
+  
+  .navbar {
+   width: auto;
+   height: 60px;
+  }
+  .hero-content{
+    margin-top: -60px;
+  }
+  
+}
+
+/* Adjust scroller logos for mobile */
+@media (max-width: 768px) {
+  .marquee__item {
+      width: 80px;
+      height: 40px;
+  }
+  
+  .marquee--8 {
+      --marquee-item-width: 80px;
+      --marquee-item-height: 40px;
+      --marquee-duration: 30s; /* Speed up the animation for smaller screens */
+      --marquee-items: 12;
+  }
+}
+/* Base styles for text sizes */
+body {
+  font-size: 1rem; /* Default font size */
+}
+
+.hero-content h1 {
+  font-size: 3rem; /* Default font size */
+}
+
+.hero-content p {
+  font-size: 1.5rem; /* Default font size */
+}
+
+.navbar .brand h1 {
+  font-size: 1.5em; /* Default font size */
+}
+
+.navbar .nav-buttons button {
+  font-size: 1em; /* Default font size */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body {
+      font-size: 0.875rem; /* Smaller font size for mobile */
+  }
+
+  .hero-content h1 {
+      font-size: 2rem; /* Smaller font size for mobile */
+  }
+
+  .hero-content p {
+      font-size: 1.25rem; /* Smaller font size for mobile */
+  }
+
+  .navbar .brand h1 {
+      font-size: 1.25em; /* Smaller font size for mobile */
+  }
+
+  .navbar .nav-buttons button {
+      font-size: 0.875em;
+      /* Smaller font size for mobile */
+  }
+
+  .marquee__item {
+      width: 80px; /* Adjust logo size for mobile */
+      height: 40px;
+  }
+  .No{
+    margin-bottom: -10%;
+  }
+}
+
